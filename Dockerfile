@@ -8,7 +8,7 @@ RUN apt-get update && apt-get install -y \
 # เปิด mod_rewrite
 RUN a2enmod rewrite
 
-# ปรับ permission และ DirectoryIndex
+# ปรับ index และสิทธิ์ Directory
 RUN echo '<Directory /var/www/html>\n\
     Options Indexes FollowSymLinks\n\
     AllowOverride All\n\
@@ -19,9 +19,12 @@ DirectoryIndex index.php index.html' >> /etc/apache2/apache2.conf
 # คัดลอกโปรเจกต์
 COPY . /var/www/html/
 
-# สร้างและตั้งสิทธิ์ให้โฟลเดอร์ upload_image
+# 🔧 สำคัญ: สร้างโฟลเดอร์อัปโหลดและให้สิทธิ์ www-data
 RUN mkdir -p /var/www/html/upload_image && \
     chown -R www-data:www-data /var/www/html && \
-    chmod -R 755 /var/www/html
+    chmod -R 775 /var/www/html
+
+# เปลี่ยน user รัน Apache เป็น www-data (ชัวร์ว่าเขียนได้)
+USER www-data
 
 EXPOSE 80
