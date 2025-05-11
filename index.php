@@ -2,23 +2,21 @@
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
 }
+
 // ตัวอย่างข้อมูลสินค้า
 if (!isset($_SESSION['products'])) {
     $_SESSION['products'] = [
         ['id' => 1, 'product_name' => 'ดอกกุหลาบ', 'price' => 50, 'detail' => 'รายละเอียดของดอกกุหลาบ', 'profile_image' => 'rose.jpg'],
         ['id' => 2, 'product_name' => 'ดอกทิวลิป', 'price' => 60, 'detail' => 'รายละเอียดของดอกทิวลิป', 'profile_image' => 'tulip.jpg'],
         ['id' => 3, 'product_name' => 'ดอกลิลลี่', 'price' => 70, 'detail' => 'รายละเอียดของดอกลิลลี่', 'profile_image' => 'lily.jpg'],
-        ['id' => 4, 'product_name' => 'ดอกคาร์เนชั่นชมพู', 'price' => 55, 'detail' => 'รายละเอียดของดอกคาร์เนชั่นชมพู', 'profile_image' => 'carnation.jpg'],
-        ['id' => 5, 'product_name' => 'ดอกบัว', 'price' => 65, 'detail' => 'รายละเอียดของดอกบัว', 'profile_image' => 'lotus.jpg'],
-        ['id' => 5, 'product_name' => 'ดอกเดซี่เหลือง', 'price' => 45, 'detail' => 'รายละเอียดของดอกเดซี่เหลือง', 'profile_image' => 'daisy.jpg'],
+        
     ];
 }
+
 $products = $_SESSION['products'];
+$rows = count($products);
 
-
-$rows = count($products); // นับจำนวนรายการสินค้า
-
-// var product form
+// ฟอร์มสำหรับสินค้า
 $result = [
     'id' => '',
     'product_name' => '',
@@ -27,12 +25,11 @@ $result = [
     'product_image' => '',
 ];
 
-// product select edit
+// เลือกสินค้าเพื่อแก้ไข
 if (!empty($_GET['id'])) {
     $product_id = $_GET['id'];
     $product_found = false;
 
-    // หาข้อมูลสินค้าจาก $products
     foreach ($products as $product) {
         if ($product['id'] == $product_id) {
             $result = $product;
@@ -140,7 +137,7 @@ if (!empty($_GET['id'])) {
                                         <small class="text-muted"><?php echo nl2br($product['detail']); ?></small>
                                     </div>
                                 </td>
-                                <td><?php echo number_format($product['price'], 2); ?></td>
+                                <td><?php echo number_format((float)$product['price'] ?: 0, 2); ?></td>
                                 <td>
                                     <a role="button" href="product-list.php?id=<?php echo $product['id']; ?>" class="btn btn-outline-dark"><i class="fa-regular fa-pen-to-square me-1"></i>Edit</a>
                                     <a onclick="return confirm('Are your sure you want to delete?');" role="button" href="product-delete.php?id=<?php echo $product['id']; ?>" class="btn btn-outline-danger"><i class="fa-solid fa-trash me-1"></i>Delete</a>

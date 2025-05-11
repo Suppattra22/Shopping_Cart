@@ -9,9 +9,7 @@ if (!isset($_SESSION['products'])) {
         ['id' => 1, 'product_name' => 'ดอกกุหลาบ', 'price' => 50, 'detail' => 'รายละเอียดของดอกกุหลาบ', 'profile_image' => 'rose.jpg'],
         ['id' => 2, 'product_name' => 'ดอกทิวลิป', 'price' => 60, 'detail' => 'รายละเอียดของดอกทิวลิป', 'profile_image' => 'tulip.jpg'],
         ['id' => 3, 'product_name' => 'ดอกลิลลี่', 'price' => 70, 'detail' => 'รายละเอียดของดอกลิลลี่', 'profile_image' => 'lily.jpg'],
-        ['id' => 4, 'product_name' => 'ดอกคาร์เนชั่นชมพู', 'price' => 65, 'detail' => 'รายละเอียดของดอกคาร์เนชั่นชมพู', 'profile_image' => 'carnation.jpg'],
-        ['id' => 5, 'product_name' => 'ดอกบัว', 'price' => 55, 'detail' => 'รายละเอียดของดอกบัว', 'profile_image' => 'lotus.jpg'],
-        ['id' => 5, 'product_name' => 'ดอกเดซี่เหลือง', 'price' => 45, 'detail' => 'รายละเอียดของดอกเดซี่เหลือง', 'profile_image' => 'daisy.jpg'],
+        
     ];
 }
 $products = $_SESSION['products'];
@@ -55,7 +53,7 @@ $products = $_SESSION['products'];
                             <h5 class="card-title"><?php echo $product['product_name']; ?></h5>
                             <p class="card-text text-success fw-bold mb-0"><?php echo number_format($product['price'], 2); ?> Baht</p>
                             <p class="card-text text-muted"><?php echo nl2br($product['detail']); ?></p>
-                            <a href="/cart-add.php?id=<?php echo $product['id']; ?>" class="btn btn-primary w-100"><i class="fa-solid fa-cart-plus me-1"></i>Add Cart</a>
+                            <a href="cart-add.php?id=<?php echo $product['id']; ?>" class="btn btn-primary w-100"><i class="fa-solid fa-cart-plus me-1"></i>Add Cart</a>
                         </div>
                     </div>
                 </div>
@@ -68,6 +66,6 @@ $products = $_SESSION['products'];
         </div>
     </div>
 
-    <script src="<?php echo $base_url; ?>/assets/js/bootstrap.min.js"></script>
+    <script src="<?php echo $base_url; ?>assets/js/bootstrap.min.js"></script>
 </body>
 </html>

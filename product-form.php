@@ -52,4 +52,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     header("Location: product-list.php");
     exit;
 }
-?>
+?>2
