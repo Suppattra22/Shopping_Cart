@@ -1,0 +1,30 @@
+name: Deploy PHP app to Azure Web App
+
+on:
+  push:
+    branches:
+      - main  # เมื่อมีการ push ไปยัง branch main
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v3
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+
+      - name: Create ZIP package (exclude git & uploads)
+        run: |
+          zip -r app.zip . -x "*.git*" "upload_image/*"
+
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: shopping-cart  # ใส่ชื่อ App Service ของคุณ
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+          package: app.zip
